@@ -1,0 +1,21 @@
+import bisect
+
+def find_ticket_prices(n, m, ticket_prices, customer_max_prices):
+    ticket_prices.sort()
+    result = []
+
+    for max_price in customer_max_prices:
+        idx = bisect.bisect_right(ticket_prices, max_price)
+        if idx == 0:
+            result.append(-1)
+        else:
+            result.append(ticket_prices[idx - 1])
+            del ticket_prices[idx - 1]
+
+    return result
+n, m = map(int, input().split())
+ticket_prices = list(map(int, input().split()))
+customer_max_prices = list(map(int, input().split()))
+
+for price in find_ticket_prices(n, m, ticket_prices, customer_max_prices):
+    print(price)
